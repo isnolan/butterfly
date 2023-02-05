@@ -43,9 +43,7 @@ export class Kuaishou {
   private parseMeta(detail: any) {
     const { photo, tags, author } = detail;
     const video = photo.manifest.adaptationSet[0].representation[0];
-    const create_at = photo.coverUrl
-      .match(/upic\/(\d+\/\d+\/\d+)\//)[1]
-      .replace(/\//g, "-");
+
     const meta = {
       id: photo.id, // ID
       url: `https://www.kuaishou.com/short-video/${photo.id}`, // 访问地址
@@ -53,7 +51,7 @@ export class Kuaishou {
       description: "", // 描述
       tags: tags.map((tag: any) => tag.name), // 标签
       category: "", // 分类
-      created_at: create_at, // 发布日期
+      created_at: formatDate(photo.create_at / 1000), // 发布日期
 
       video: {
         quality: video.qualityType, //质量标签
