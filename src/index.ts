@@ -1,7 +1,8 @@
-import HttpsProxyAgent from "https-proxy-agent";
 import { detect } from "./utils";
 import { Tiktok } from "./tiktok";
 import { Douyin } from "./douyin";
+import { Youtube } from "./youtube";
+import { Kuaishou } from "./kuaishou";
 
 export type VideoType = {
   type: "tiktok" | "douyin" | "youtube" | "kuaishou";
@@ -11,9 +12,8 @@ export type VideoType = {
 
 export class Butterfly {
   private client: any;
-  private agent: any;
 
-  constructor(type: string, options: any) {
+  constructor(type: string, options?: any) {
     if (type == "tiktok") {
       this.client = new Tiktok();
       return;
@@ -24,9 +24,14 @@ export class Butterfly {
       return;
     }
 
-    // options
-    if (options.agent) {
-      this.agent = HttpsProxyAgent(options.agent);
+    if (type == "youtube") {
+      this.client = new Youtube(options);
+      return;
+    }
+
+    if (type == "kuaishou") {
+      this.client = new Kuaishou();
+      return;
     }
 
     throw new Error(`unsupport the video type: ${type}`);

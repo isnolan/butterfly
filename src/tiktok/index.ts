@@ -19,49 +19,41 @@ export class Tiktok {
     });
   }
 
-  private parseMeta(data: any) {
-    let meta = {
-      id: data.aweme_id,
-      title: data.desc,
-      created_at: formatDate(data.create_time),
-      stats: data.statistics,
+  private parseMeta(detail: any) {
+    const { video, statistics, author } = detail;
+    const meta = {
+      id: detail.aweme_id, // ID
+      url: `https://www.tiktok.com/@${author.unique_id}/video/${detail.aweme_id}`, // 访问地址
+      title: detail.preview_title || "", // 标题
+      description: detail.desc, // 描述
+      tags: detail.text_extra.map((tag: any) => tag.hashtag_name), // 标签
+      category: "", // 分类
+      created_at: formatDate(detail.create_time), // 发布日期
+
       video: {
-        video: data.video.play_addr.url_list[0],
-        cover: data.video.cover.url_list[0],
-        dynamic_cover: data.video.dynamic_cover.url_list[0],
-        origin_cover: data.video.origin_cover.url_list[0],
-        width: data.video.width,
-        height: data.video.height,
-        duration: Math.floor(data.video.duration / 1000),
-        ratio: data.video.ratio,
+        quality: video.ratio, //质量标签
+        width: video.width, // 宽度
+        height: video.height, // 高度
+        duration: Math.floor(video.duration / 1000), // 秒长
+        cover_url: video.cover.url_list[0], // 封面地址，有时效
+        video_url: video.play_addr.url_list[0], // 无水印视频地址，有时效
       },
-      music: data.music
-        ? {
-            id: data.music.id,
-            title: data.music.title,
-            author: data.music.author,
-            cover_hd: data.music.cover_hd
-              ? data.music.cover_hd.url_list[0]
-              : null,
-            cover_large: data.music.cover_large.url_list[0],
-            cover_medium: data.music.cover_medium.url_list[0],
-            cover_thumb: data.music.cover_thumb.url_list[0],
-            duration: data.music.duration,
-            play_url: data.music.play_url.url_list[0],
-          }
-        : {},
-      author: data.author
-        ? {
-            id: data.author.uid,
-            name: data.author.nickname,
-            gender: data.author.gender,
-            birthday: data.author.birthday,
-            unique_id: data.author.unique_id,
-            signature: data.author.signature,
-            avatar: data.author.avatar_medium.url_list[0],
-            avatar_thumb: data.author.avatar_thumb.url_list[0],
-          }
-        : {},
+
+      stats: {
+        view: statistics.play_count, // 播放
+        likes: statistics.digg_count, // 喜欢
+        comment: statistics.comment_count, // 评论
+        favourite: statistics.collect_count, // 收藏
+        share: statistics.share_count, // 转发
+      },
+
+      author: {
+        id: author.uid, // 频道ID
+        name: author.nickname, // 频道名称
+        avatar_url: author.avatar_medium.url_list[0], // 频道头像，有时效
+        channel_url: `https://www.tiktok.com/@${author.unique_id}`, // 频道访问地址
+        subscriber_count: author.favoriting_count, // 订阅人数
+      },
     };
     return meta;
   }
