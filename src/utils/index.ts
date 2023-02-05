@@ -2,6 +2,19 @@ export const userAgent =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36";
 
 /**
+ * 格式化日期
+ * @param timestamp
+ * @returns
+ */
+export function formatDate(timestamp: number) {
+  const a = [{ year: "numeric" }, { month: "2-digit" }, { day: "2-digit" }];
+  function format(m: any) {
+    return new Intl.DateTimeFormat("en", m).format(timestamp * 1000);
+  }
+  return a.map(format).join("-");
+}
+
+/**
  * 视频地址解析
  * @param url
  * @returns

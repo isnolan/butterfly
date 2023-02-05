@@ -1,5 +1,5 @@
 export type VideoType = {
-    platform: string;
+    type: "tiktok" | "douyin" | "youtube" | "kuaishou";
     url: string;
     id: string;
 };

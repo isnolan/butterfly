@@ -1,4 +1,4 @@
-import fs from "fs";
+import { formatDate } from "../utils";
 
 export class Douyin {
   private userAgent =
@@ -12,24 +12,15 @@ export class Douyin {
       headers: { "user-agent": this.userAgent },
     }).then(async (res) => {
       const data = await res.json();
-      console.log(data);
       return this.parseMeta(data.aweme_detail);
     });
-  }
-
-  private formatDate(timestamp: number) {
-    const a = [{ year: "numeric" }, { month: "numeric" }, { day: "numeric" }];
-    function format(m: any) {
-      return new Intl.DateTimeFormat("en", m).format(timestamp);
-    }
-    return a.map(format).join("-");
   }
 
   private parseMeta(data: any) {
     let meta = {
       id: data.aweme_id,
       title: data.desc,
-      created_at: this.formatDate(data.create_time * 1000),
+      created_at: formatDate(data.create_time),
       stats: data.statistics,
       video: {
         video: data.video.play_addr.url_list[0],
