@@ -1,0 +1,14 @@
+{
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "files.associations": {
+    "*.env*": "properties"
+  },
+  "editor.tabSize": 2
+}
