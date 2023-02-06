@@ -1,11 +1,11 @@
-export declare class Douyin {
+export declare class Kuaishou {
     private userAgent;
     constructor();
     detail(postId: string): Promise<{
         id: any;
         url: string;
         title: any;
-        description: any;
+        description: string;
         tags: any;
         category: string;
         created_at: string;
@@ -18,19 +18,20 @@ export declare class Douyin {
             video_url: any;
         };
         stats: {
-            view: any;
-            likes: any;
-            comment: any;
-            favourite: any;
-            share: any;
+            view: number;
+            likes: number;
+            comment: number;
+            favourite: number;
+            share: number;
         };
         author: {
             id: any;
             name: any;
             avatar_url: any;
             channel_url: string;
-            subscriber_count: any;
+            subscriber_count: number;
         };
     }>;
+    private formatCount;
     private parseMeta;
 }

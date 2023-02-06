@@ -5,7 +5,7 @@ export type VideoType = {
 };
 export declare class Butterfly {
     private client;
-    constructor(type: string);
+    constructor(type: string, options?: any);
     /**
      * 视频地址解析
      * @param url
@@ -16,5 +16,5 @@ export declare class Butterfly {
      * 获取视频详情
      */
     detail(postId: string): Promise<any>;
-    stats(postId: string): void;
+    statistics(postId: string): void;
 }

@@ -1,6 +1,6 @@
 {
   "name": "butterfly",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Social media data synchronization and analysis tool",
   "main": "dist/butterfly.umd.js",
   "module": "dist/butterfly.es5.js",

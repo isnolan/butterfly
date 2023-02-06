@@ -1,62 +1,37 @@
 export declare class Tiktok {
+    private agent;
     private userAgent;
-    constructor();
+    constructor(option: any);
     detail(postId: string): Promise<{
         id: any;
+        url: string;
         title: any;
+        description: any;
+        tags: any;
+        category: string;
         created_at: string;
-        stats: any;
         video: {
-            video: any;
-            cover: any;
-            dynamic_cover: any;
-            origin_cover: any;
+            quality: any;
             width: any;
             height: any;
             duration: number;
-            ratio: any;
+            cover_url: any;
+            video_url: any;
         };
-        music: {
-            id: any;
-            title: any;
-            author: any;
-            cover_hd: any;
-            cover_large: any;
-            cover_medium: any;
-            cover_thumb: any;
-            duration: any;
-            play_url: any;
-        } | {
-            id?: undefined;
-            title?: undefined;
-            author?: undefined;
-            cover_hd?: undefined;
-            cover_large?: undefined;
-            cover_medium?: undefined;
-            cover_thumb?: undefined;
-            duration?: undefined;
-            play_url?: undefined;
+        stats: {
+            view: any;
+            likes: any;
+            comment: any;
+            favourite: any;
+            share: any;
         };
         author: {
             id: any;
             name: any;
-            gender: any;
-            birthday: any;
-            unique_id: any;
-            signature: any;
-            avatar: any;
-            avatar_thumb: any;
-        } | {
-            id?: undefined;
-            name?: undefined;
-            gender?: undefined;
-            birthday?: undefined;
-            unique_id?: undefined;
-            signature?: undefined;
-            avatar?: undefined;
-            avatar_thumb?: undefined;
+            avatar_url: any;
+            channel_url: string;
+            subscriber_count: any;
         };
     }>;
-    private formatDate;
     private parseMeta;
 }
