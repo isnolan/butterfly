@@ -1,5 +1,5 @@
 import axios from "axios";
-import { formatDate } from "../utils";
+import { formatDate } from "./util";
 
 export class Douyin {
   private userAgent =

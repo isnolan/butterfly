@@ -1,4 +1,4 @@
-import { detect } from "./utils";
+import { detect } from "./util";
 import { Tiktok } from "./tiktok";
 import { Douyin } from "./douyin";
 import { Youtube } from "./youtube";

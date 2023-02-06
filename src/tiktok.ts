@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as HttpsProxyAgent from "https-proxy-agent";
-import { formatDate } from "../utils";
+import { formatDate } from "./util";
 
 export class Tiktok {
   private agent: any;
@@ -8,7 +8,6 @@ export class Tiktok {
     "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet";
 
   constructor(option: any) {
-    console.log(`->tiktok`, option);
     // options
     if (option && option.agent) {
       this.agent = HttpsProxyAgent(option.agent);

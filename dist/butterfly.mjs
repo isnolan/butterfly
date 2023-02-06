@@ -91,7 +91,7 @@ function Jt(e, t) {
 const { toString: Kt } = Object.prototype, { getPrototypeOf: st } = Object, ct = ((e) => (t) => {
   const n = Kt.call(t);
   return e[n] || (e[n] = n.slice(8, -1).toLowerCase());
-})(/* @__PURE__ */ Object.create(null)), ae = (e) => (e = e.toLowerCase(), (t) => ct(t) === e), ke = (e) => (t) => typeof t === e, { isArray: ye } = Array, Se = ke("undefined");
+})(/* @__PURE__ */ Object.create(null)), ae = (e) => (e = e.toLowerCase(), (t) => ct(t) === e), Me = (e) => (t) => typeof t === e, { isArray: ye } = Array, Se = Me("undefined");
 function Pn(e) {
   return e !== null && !Se(e) && e.constructor !== null && !Se(e.constructor) && le(e.constructor.isBuffer) && e.constructor.isBuffer(e);
 }
@@ -100,12 +100,12 @@ function Ln(e) {
   let t;
   return typeof ArrayBuffer < "u" && ArrayBuffer.isView ? t = ArrayBuffer.isView(e) : t = e && e.buffer && Zt(e.buffer), t;
 }
-const Fn = ke("string"), le = ke("function"), en = ke("number"), lt = (e) => e !== null && typeof e == "object", Bn = (e) => e === !0 || e === !1, De = (e) => {
+const Fn = Me("string"), le = Me("function"), en = Me("number"), lt = (e) => e !== null && typeof e == "object", Bn = (e) => e === !0 || e === !1, De = (e) => {
   if (ct(e) !== "object")
     return !1;
   const t = st(e);
   return (t === null || t === Object.prototype || Object.getPrototypeOf(t) === null) && !(Symbol.toStringTag in e) && !(Symbol.iterator in e);
-}, xn = ae("Date"), kn = ae("File"), Mn = ae("Blob"), Un = ae("FileList"), qn = (e) => lt(e) && le(e.pipe), $n = (e) => {
+}, xn = ae("Date"), Mn = ae("File"), kn = ae("Blob"), Un = ae("FileList"), qn = (e) => lt(e) && le(e.pipe), $n = (e) => {
   const t = "[object FormData]";
   return e && (typeof FormData == "function" && e instanceof FormData || Kt.call(e) === t || le(e.toString) && e.toString() === t);
 }, Vn = ae("URLSearchParams"), Hn = (e) => e.trim ? e.trim() : e.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
@@ -265,8 +265,8 @@ const cr = (e) => {
   isPlainObject: De,
   isUndefined: Se,
   isDate: xn,
-  isFile: kn,
-  isBlob: Mn,
+  isFile: Mn,
+  isBlob: kn,
   isRegExp: tr,
   isFunction: le,
   isStream: qn,
@@ -372,7 +372,7 @@ function ur(e) {
 const dr = _.toFlatObject(_, {}, null, function(t) {
   return /^is[A-Z]/.test(t);
 });
-function Me(e, t, n) {
+function ke(e, t, n) {
   if (!_.isObject(e))
     throw new TypeError("target must be an object");
   t = t || new FormData(), n = _.toFlatObject(n, {
@@ -449,7 +449,7 @@ function Lt(e) {
   });
 }
 function ut(e, t) {
-  this._pairs = [], e && Me(e, this, t);
+  this._pairs = [], e && ke(e, this, t);
 }
 const un = ut.prototype;
 un.append = function(t, n) {
@@ -551,7 +551,7 @@ self instanceof WorkerGlobalScope && typeof self.importScripts == "function")(),
   protocols: ["http", "https", "file", "blob", "url", "data"]
 };
 function gr(e, t) {
-  return Me(e, new te.classes.URLSearchParams(), Object.assign({
+  return ke(e, new te.classes.URLSearchParams(), Object.assign({
     visitor: function(n, r, a, s) {
       return te.isNode && _.isBuffer(n) ? (this.append(r, n.toString("base64")), !1) : s.defaultVisitor.apply(this, arguments);
     }
@@ -615,7 +615,7 @@ const Ue = {
         return gr(t, this.formSerializer).toString();
       if ((p = _.isFileList(t)) || r.indexOf("multipart/form-data") > -1) {
         const m = this.env && this.env.FormData;
-        return Me(
+        return ke(
           p ? { "files[]": t } : t,
           m && new m(),
           this.formSerializer
@@ -980,7 +980,7 @@ function xt(e, t) {
     l[t ? "download" : "upload"] = !0, e(l);
   };
 }
-const xr = typeof XMLHttpRequest < "u", kr = xr && function(e) {
+const xr = typeof XMLHttpRequest < "u", Mr = xr && function(e) {
   return new Promise(function(n, r) {
     let a = e.data;
     const s = ie.from(e.headers).normalize(), c = e.responseType;
@@ -1048,7 +1048,7 @@ const xr = typeof XMLHttpRequest < "u", kr = xr && function(e) {
   });
 }, Le = {
   http: lr,
-  xhr: kr
+  xhr: Mr
 };
 _.forEach(Le, (e, t) => {
   if (e) {
@@ -1059,7 +1059,7 @@ _.forEach(Le, (e, t) => {
     Object.defineProperty(e, "adapterName", { value: t });
   }
 });
-const Mr = {
+const kr = {
   getAdapter: (e) => {
     e = _.isArray(e) ? e : [e];
     const { length: t } = e;
@@ -1083,11 +1083,11 @@ function Ye(e) {
   if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
     throw new Oe(null, e);
 }
-function kt(e) {
+function Mt(e) {
   return Ye(e), e.headers = ie.from(e.headers), e.data = Xe.call(
     e,
     e.transformRequest
-  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), Mr.getAdapter(e.adapter || dt.adapter)(e).then(function(r) {
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), kr.getAdapter(e.adapter || dt.adapter)(e).then(function(r) {
     return Ye(e), r.data = Xe.call(
       e,
       e.transformResponse,
@@ -1101,7 +1101,7 @@ function kt(e) {
     ), r.response.headers = ie.from(r.response.headers))), Promise.reject(r);
   });
 }
-const Mt = (e) => e instanceof ie ? e.toJSON() : e;
+const kt = (e) => e instanceof ie ? e.toJSON() : e;
 function he(e, t) {
   t = t || {};
   const n = {};
@@ -1160,7 +1160,7 @@ function he(e, t) {
     socketPath: c,
     responseEncoding: c,
     validateStatus: p,
-    headers: (d, l) => a(Mt(d), Mt(l), !0)
+    headers: (d, l) => a(kt(d), kt(l), !0)
   };
   return _.forEach(Object.keys(e).concat(Object.keys(t)), function(l) {
     const u = m[l] || a, w = u(e[l], t[l], l);
@@ -1260,7 +1260,7 @@ class Be {
     });
     let l, u = 0, w;
     if (!m) {
-      const g = [kt.bind(this), void 0];
+      const g = [Mt.bind(this), void 0];
       for (g.unshift.apply(g, p), g.push.apply(g, d), w = g.length, l = Promise.resolve(n); u < w; )
         l = l.then(g[u++], g[u++]);
       return l;
@@ -1277,7 +1277,7 @@ class Be {
       }
     }
     try {
-      l = kt.call(this, f);
+      l = Mt.call(this, f);
     } catch (g) {
       return Promise.reject(g);
     }
@@ -1474,7 +1474,7 @@ j.CanceledError = Oe;
 j.CancelToken = qr;
 j.isCancel = hn;
 j.VERSION = yn;
-j.toFormData = Me;
+j.toFormData = ke;
 j.AxiosError = x;
 j.Cancel = j.CanceledError;
 j.all = function(t) {
@@ -1630,11 +1630,11 @@ function Yr(e) {
       const O = T, S = Number(new Date()), N = S - (u || S);
       O.diff = N, O.prev = u, O.curr = S, u = S, A[0] = n.coerce(A[0]), typeof A[0] != "string" && A.unshift("%O");
       let F = 0;
-      A[0] = A[0].replace(/%([a-zA-Z%])/g, (G, k) => {
+      A[0] = A[0].replace(/%([a-zA-Z%])/g, (G, M) => {
         if (G === "%%")
           return "%";
         F++;
-        const Z = n.formatters[k];
+        const Z = n.formatters[M];
         if (typeof Z == "function") {
           const y = A[F];
           G = Z.call(O, y), A.splice(F, 1), F--;
@@ -2091,7 +2091,7 @@ const wn = /* @__PURE__ */ Nn({
 }, [Ht]);
 class gi {
   constructor(t) {
-    this.userAgent = "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet", console.log("->tiktok", t), t && t.agent && (this.agent = wn(t.agent));
+    this.userAgent = "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet", t && t.agent && (this.agent = wn(t.agent));
   }
   async detail(t) {
     const n = `https://api2.musical.ly/aweme/v1/feed/?aweme_id=${t}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US`;
@@ -2402,11 +2402,11 @@ var Tn = {}, gt = {};
     function G(o) {
       return o === ">" || F(o);
     }
-    function k(o, i) {
+    function M(o, i) {
       return o.test(i);
     }
     function Z(o, i) {
-      return !k(o, i);
+      return !M(o, i);
     }
     var y = 0;
     t.STATE = {
@@ -2756,9 +2756,9 @@ var Tn = {}, gt = {};
       o.textNode && U(o), P(o, i, b);
     }
     function U(o) {
-      o.textNode = M(o.opt, o.textNode), o.textNode && P(o, "ontext", o.textNode), o.textNode = "";
+      o.textNode = k(o.opt, o.textNode), o.textNode && P(o, "ontext", o.textNode), o.textNode = "";
     }
-    function M(o, i) {
+    function k(o, i) {
       return o.trim && (i = i.trim()), o.normalize && (i = i.replace(/\s+/g, " ")), i;
     }
     function Q(o, i) {
@@ -2934,7 +2934,7 @@ Actual: ` + o.attribValue
             if (h === "!")
               i.state = y.SGML_DECL, i.sgmlDecl = "";
             else if (!F(h))
-              if (k(A, h))
+              if (M(A, h))
                 i.state = y.OPEN_TAG, i.tagName = h;
               else if (h === "/")
                 i.state = y.CLOSE_TAG, i.tagName = "";
@@ -2973,7 +2973,7 @@ Actual: ` + o.attribValue
             h === "-" ? i.state = y.COMMENT_ENDING : i.comment += h;
             continue;
           case y.COMMENT_ENDING:
-            h === "-" ? (i.state = y.COMMENT_ENDED, i.comment = M(i.opt, i.comment), i.comment && I(i, "oncomment", i.comment), i.comment = "") : (i.comment += "-" + h, i.state = y.COMMENT);
+            h === "-" ? (i.state = y.COMMENT_ENDED, i.comment = k(i.opt, i.comment), i.comment && I(i, "oncomment", i.comment), i.comment = "") : (i.comment += "-" + h, i.state = y.COMMENT);
             continue;
           case y.COMMENT_ENDED:
             h !== ">" ? (v(i, "Malformed comment"), i.comment += "--" + h, i.state = y.COMMENT) : i.state = y.TEXT;
@@ -3002,7 +3002,7 @@ Actual: ` + o.attribValue
             }), i.procInstName = i.procInstBody = "", i.state = y.TEXT) : (i.procInstBody += "?" + h, i.state = y.PROC_INST_BODY);
             continue;
           case y.OPEN_TAG:
-            k(O, h) ? i.tagName += h : (z(i), h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : (F(h) || v(i, "Invalid character in tag name"), i.state = y.ATTRIB));
+            M(O, h) ? i.tagName += h : (z(i), h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : (F(h) || v(i, "Invalid character in tag name"), i.state = y.ATTRIB));
             continue;
           case y.OPEN_TAG_SLASH:
             h === ">" ? (ne(i, !0), Te(i)) : (v(i, "Forward-slash in opening tag not followed by >"), i.state = y.ATTRIB);
@@ -3010,10 +3010,10 @@ Actual: ` + o.attribValue
           case y.ATTRIB:
             if (F(h))
               continue;
-            h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : k(A, h) ? (i.attribName = h, i.attribValue = "", i.state = y.ATTRIB_NAME) : v(i, "Invalid attribute name");
+            h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : M(A, h) ? (i.attribName = h, i.attribValue = "", i.state = y.ATTRIB_NAME) : v(i, "Invalid attribute name");
             continue;
           case y.ATTRIB_NAME:
-            h === "=" ? i.state = y.ATTRIB_VALUE : h === ">" ? (v(i, "Attribute without value"), i.attribValue = i.attribName, we(i), ne(i)) : F(h) ? i.state = y.ATTRIB_NAME_SAW_WHITE : k(O, h) ? i.attribName += h : v(i, "Invalid attribute name");
+            h === "=" ? i.state = y.ATTRIB_VALUE : h === ">" ? (v(i, "Attribute without value"), i.attribValue = i.attribName, we(i), ne(i)) : F(h) ? i.state = y.ATTRIB_NAME_SAW_WHITE : M(O, h) ? i.attribName += h : v(i, "Invalid attribute name");
             continue;
           case y.ATTRIB_NAME_SAW_WHITE:
             if (h === "=")
@@ -3024,7 +3024,7 @@ Actual: ` + o.attribValue
               v(i, "Attribute without value"), i.tag.attributes[i.attribName] = "", i.attribValue = "", I(i, "onattribute", {
                 name: i.attribName,
                 value: ""
-              }), i.attribName = "", h === ">" ? ne(i) : k(A, h) ? (i.attribName = h, i.state = y.ATTRIB_NAME) : (v(i, "Invalid attribute name"), i.state = y.ATTRIB);
+              }), i.attribName = "", h === ">" ? ne(i) : M(A, h) ? (i.attribName = h, i.state = y.ATTRIB_NAME) : (v(i, "Invalid attribute name"), i.state = y.ATTRIB);
             }
             continue;
           case y.ATTRIB_VALUE:
@@ -3040,7 +3040,7 @@ Actual: ` + o.attribValue
             we(i), i.q = "", i.state = y.ATTRIB_VALUE_CLOSED;
             continue;
           case y.ATTRIB_VALUE_CLOSED:
-            F(h) ? i.state = y.ATTRIB : h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : k(A, h) ? (v(i, "No whitespace between attributes"), i.attribName = h, i.attribValue = "", i.state = y.ATTRIB_NAME) : v(i, "Invalid attribute name");
+            F(h) ? i.state = y.ATTRIB : h === ">" ? ne(i) : h === "/" ? i.state = y.OPEN_TAG_SLASH : M(A, h) ? (v(i, "No whitespace between attributes"), i.attribName = h, i.attribValue = "", i.state = y.ATTRIB_NAME) : v(i, "Invalid attribute name");
             continue;
           case y.ATTRIB_VALUE_UNQUOTED:
             if (!G(h)) {
@@ -3051,7 +3051,7 @@ Actual: ` + o.attribValue
             continue;
           case y.CLOSE_TAG:
             if (i.tagName)
-              h === ">" ? Te(i) : k(O, h) ? i.tagName += h : i.script ? (i.script += "</" + i.tagName, i.tagName = "", i.state = y.SCRIPT) : (F(h) || v(i, "Invalid tagname in closing tag"), i.state = y.CLOSE_TAG_SAW_WHITE);
+              h === ">" ? Te(i) : M(O, h) ? i.tagName += h : i.script ? (i.script += "</" + i.tagName, i.tagName = "", i.state = y.SCRIPT) : (F(h) || v(i, "Invalid tagname in closing tag"), i.state = y.CLOSE_TAG_SAW_WHITE);
             else {
               if (F(h))
                 continue;
@@ -3078,7 +3078,7 @@ Actual: ` + o.attribValue
                 L = y.ATTRIB_VALUE_UNQUOTED, $ = "attribValue";
                 break;
             }
-            h === ";" ? (i[$] += je(i), i.entity = "", i.state = L) : k(i.entity.length ? N : S, h) ? i.entity += h : (v(i, "Invalid character in entity name"), i[$] += "&" + i.entity + h, i.entity = "", i.state = L);
+            h === ";" ? (i[$] += je(i), i.entity = "", i.state = L) : M(i.entity.length ? N : S, h) ? i.entity += h : (v(i, "Invalid character in entity name"), i[$] += "&" + i.entity + h, i.entity = "", i.state = L);
             continue;
           default:
             throw new Error(i, "Unknown state: " + i.state);
@@ -3140,7 +3140,7 @@ function ee(e, t = {}) {
   const O = () => p && A > 0, S = () => !f || A === w, N = (D) => {
     p = null, d = 0;
     let P = r.backoff.inc, I = Math.min(P, r.backoff.max);
-    l = setTimeout(k, I), a.emit("reconnect", u, D);
+    l = setTimeout(M, I), a.emit("reconnect", u, D);
   }, F = (D) => t.method !== "HEAD" && !S() && u++ < r.maxReconnects ? (N(D), !0) : !1, V = (D) => {
     if (a.destroyed)
       return !1;
@@ -3148,13 +3148,13 @@ function ee(e, t = {}) {
       return F(D.err);
     if ((!D.err || D.err.message === "ENOTFOUND") && d++ < r.maxRetries) {
       let P = D.retryAfter || Math.min(d * r.backoff.inc, r.backoff.max);
-      return l = setTimeout(k, P), a.emit("retry", d, D.err), !0;
+      return l = setTimeout(M, P), a.emit("retry", d, D.err), !0;
     }
     return !1;
   }, G = (D, P) => {
     for (let I of P)
       D.on(I, a.emit.bind(a, I));
-  }, k = () => {
+  }, M = () => {
     let D = {}, P;
     try {
       let v = typeof e == "string" ? new URL(e) : e;
@@ -3190,15 +3190,15 @@ function ee(e, t = {}) {
       }
     }
     const I = (v) => {
-      a.destroyed || a.readableEnded || (M(), V({ err: v }) ? s.removeListener("close", U) : a.emit("error", v));
+      a.destroyed || a.readableEnded || (k(), V({ err: v }) ? s.removeListener("close", U) : a.emit("error", v));
     }, U = () => {
-      M(), V({});
-    }, M = () => {
+      k(), V({});
+    }, k = () => {
       s.removeListener("close", U), c == null || c.removeListener("data", Q), p == null || p.removeListener("end", q);
     }, Q = (v) => {
       A += v.length;
     }, q = () => {
-      M(), F() || a.end();
+      k(), F() || a.end();
     };
     s = P.request(D, (v) => {
       if (!a.destroyed) {
@@ -3210,23 +3210,23 @@ function ee(e, t = {}) {
               e = v.headers.location;
             else {
               let z = new ee.MinigetError("Redirect status code given with no location", v.statusCode);
-              a.emit("error", z), M();
+              a.emit("error", z), k();
               return;
             }
-            setTimeout(k, parseInt(v.headers["retry-after"] || "0", 10) * 1e3), a.emit("redirect", e);
+            setTimeout(M, parseInt(v.headers["retry-after"] || "0", 10) * 1e3), a.emit("redirect", e);
           }
-          M();
+          k();
           return;
         } else if (Ai.has(v.statusCode)) {
           if (!V({ retryAfter: parseInt(v.headers["retry-after"] || "0", 10) })) {
             let z = new ee.MinigetError(`Status code: ${v.statusCode}`, v.statusCode);
             a.emit("error", z);
           }
-          M();
+          k();
           return;
         } else if (v.statusCode && (v.statusCode < 200 || v.statusCode >= 400)) {
           let z = new ee.MinigetError(`Status code: ${v.statusCode}`, v.statusCode);
-          v.statusCode >= 500 ? I(z) : a.emit("error", z), M();
+          v.statusCode >= 500 ? I(z) : a.emit("error", z), k();
           return;
         }
         if (p = v, r.acceptEncoding && v.headers["content-encoding"])
@@ -3250,7 +3250,7 @@ function ee(e, t = {}) {
   }, a.text = () => new Promise((D, P) => {
     let I = "";
     a.setEncoding("utf8"), a.on("data", (U) => I += U), a.on("end", () => D(I)), a.on("error", P);
-  }), process.nextTick(k), a;
+  }), process.nextTick(M), a;
 }
 var $e = ee, ge = {};
 const Si = "ytdl-core", Ii = "YouTube video downloader in pure javascript.", Oi = [
@@ -3271,7 +3271,7 @@ const Si = "ytdl-core", Ii = "YouTube video downloader in pure javascript.", Oi 
 ], Fi = "./lib/index.js", Bi = "./typings/index.d.ts", xi = [
   "lib",
   "typings"
-], ki = {
+], Mi = {
   test: "nyc --reporter=lcov --reporter=text-summary npm run test:unit",
   "test:unit": "mocha --ignore test/irl-test.js test/*-test.js --timeout 4000",
   "test:irl": "mocha --timeout 16000 test/irl-test.js",
@@ -3279,7 +3279,7 @@ const Si = "ytdl-core", Ii = "YouTube video downloader in pure javascript.", Oi 
   "lint:fix": "eslint --fix ./",
   "lint:typings": "tslint typings/index.d.ts",
   "lint:typings:fix": "tslint --fix typings/index.d.ts"
-}, Mi = {
+}, ki = {
   m3u8stream: "^0.8.6",
   miniget: "^4.2.2",
   sax: "^1.1.3"
@@ -3308,8 +3308,8 @@ const Si = "ytdl-core", Ii = "YouTube video downloader in pure javascript.", Oi 
   main: Fi,
   types: Bi,
   files: xi,
-  scripts: ki,
-  dependencies: Mi,
+  scripts: Mi,
+  dependencies: ki,
   devDependencies: Ui,
   engines: qi,
   license: $i
@@ -4211,7 +4211,7 @@ class Ji extends Xi.Writable {
               N = N / c * 1e3, F = F || 1, r = V || r;
               for (let G = 0; G < F; G++)
                 this.emit("item", {
-                  url: d.filter((k) => !!k).join("") + A(s.media),
+                  url: d.filter((M) => !!M).join("") + A(s.media),
                   seq: a++,
                   duration: N
                 }), r += N;
@@ -4293,7 +4293,7 @@ let An = (e, t = {}) => {
   const l = new zt.Queue((P, I) => {
     d = P;
     let U = 0;
-    P.on("data", (M) => U += M.length), P.pipe(n, { end: !1 }), P.on("end", () => I(null, U));
+    P.on("data", (k) => U += k.length), P.pipe(n, { end: !1 }), P.on("end", () => I(null, U));
   }, { concurrency: 1 });
   let u = 0, w = 0;
   const f = new zt.Queue((P, I) => {
@@ -4301,8 +4301,8 @@ let An = (e, t = {}) => {
     P.range && (U.headers = Object.assign({}, U.headers, {
       Range: `bytes=${P.range.start}-${P.range.end}`
     }));
-    let M = Wt.default(new URL(P.url, e).toString(), U);
-    M.on("error", I), m(M), l.push(M, (Q, q) => {
+    let k = Wt.default(new URL(P.url, e).toString(), U);
+    k.on("error", I), m(k), l.push(k, (Q, q) => {
       w += +q, n.emit("progress", {
         num: ++u,
         size: q,
@@ -4323,15 +4323,15 @@ let An = (e, t = {}) => {
     } else
       (N || F) && !f.tasks.length && !f.active && n.end();
   };
-  let k, Z, y = 0;
+  let M, Z, y = 0;
   const D = () => {
-    V = Date.now(), k = Wt.default(e, s), k.on("error", g), m(k);
-    const P = k.pipe(new c(t.id));
+    V = Date.now(), M = Wt.default(e, s), M.on("error", g), m(M);
+    const P = M.pipe(new c(t.id));
     P.on("starttime", (q) => {
       y || (y = q, typeof t.begin == "string" && p >= 0 && (p += y));
     }), P.on("endlist", () => {
       F = !0;
-    }), P.on("endearly", k.unpipe.bind(k, P));
+    }), P.on("endearly", M.unpipe.bind(M, P));
     let I = [];
     const U = (q) => {
       if (!q.init) {
@@ -4341,24 +4341,24 @@ let An = (e, t = {}) => {
       }
       p = q.time, f.push(q, G), I.push(q);
     };
-    let M = [], Q = 0;
+    let k = [], Q = 0;
     P.on("item", (q) => {
       let v = Object.assign({ time: y }, q);
       if (p <= v.time)
         U(v);
       else
-        for (M.push(v), Q += v.duration; M.length > 1 && Q - M[0].duration > a; ) {
-          const z = M.shift();
+        for (k.push(v), Q += v.duration; k.length > 1 && Q - k[0].duration > a; ) {
+          const z = k.shift();
           Q -= z.duration;
         }
       y += v.duration;
     }), P.on("end", () => {
-      k = null, !I.length && M.length && M.forEach((q) => {
+      M = null, !I.length && k.length && k.forEach((q) => {
         U(q);
       }), T = Math.max(1, Math.ceil(I.length * 0.01)), A = I.reduce((q, v) => v.duration + q, 0), S = !1, G(null);
     });
   };
-  return D(), n.end = () => (N = !0, l.die(), f.die(), clearTimeout(O), k == null || k.destroy(), d == null || d.destroy(), Gt.PassThrough.prototype.end.call(n, null), n), n;
+  return D(), n.end = () => (N = !0, l.die(), f.die(), clearTimeout(O), M == null || M.destroy(), d == null || d.destroy(), Gt.PassThrough.prototype.end.call(n, null), n), n;
 };
 An.parseTimestamp = vn.humanStr;
 var At = An;
@@ -4748,7 +4748,7 @@ var Rn = class extends Map {
   }, G = (C) => {
     let E = /<script\s+src="([^"]+)"(?:\s+type="text\/javascript")?\s+name="player_ias\/base"\s*>|"jsUrl":"([^"]+)"/.exec(C);
     return E ? E[1] || E[2] : null;
-  }, k = (C, E, o, i) => e.cookieCache.getOrSet(o, async () => {
+  }, M = (C, E, o, i) => e.cookieCache.getOrSet(o, async () => {
     let h = (await N(C, E)).match(/(["'])ID_TOKEN\1[:,]\s?"([^"]+)"/);
     if (!h && i)
       throw new f("Cookie header used in request, but unable to find YouTube identity token");
@@ -4800,7 +4800,7 @@ var Rn = class extends Map {
     if (!R)
       throw Error(`Could not find ${E} in ${C}`);
     return I(C, E, a.cutAfterJS(`${h}${R}`));
-  }, M = (C, E) => {
+  }, k = (C, E) => {
     const o = E && (E.args && E.args.player_response || E.player_response || E.playerResponse || E.embedded_player_response);
     return I(C, "player_response", o);
   }, Q = (C, E) => `${S(C, E)}&pbj=1`, q = async (C, E) => {
@@ -4812,7 +4812,7 @@ var Rn = class extends Map {
       "x-youtube-identity-token": e.cookieCache.get(i || "browser") || ""
     }, o.headers);
     const b = async ($, J) => {
-      o.headers["x-youtube-identity-token"] || (o.headers["x-youtube-identity-token"] = await k(C, E, $, J));
+      o.headers["x-youtube-identity-token"] || (o.headers["x-youtube-identity-token"] = await M(C, E, $, J));
     };
     i && await b(i, !0);
     const h = Q(C, E), R = await a.exposedMiniget(h, E, o).text();
@@ -4820,7 +4820,7 @@ var Rn = class extends Map {
     if (B.reload === "now" && await b("browser", !1), B.reload === "now" || !Array.isArray(B))
       throw Error("Unable to retrieve video metadata in watch.json");
     let L = B.reduce(($, J) => Object.assign(J, $), {});
-    return L.player_response = M("watch.json", L), L.html5player = L.player && L.player.assets && L.player.assets.js, L;
+    return L.player_response = k("watch.json", L), L.html5player = L.player && L.player.assets && L.player.assets.js, L;
   }, v = async (C, E) => {
     let o = await N(C, E), i = { page: "watch" };
     try {
@@ -4834,7 +4834,7 @@ var Rn = class extends Map {
       );
     } catch {
       let h = U("watch.html", "player_response", o, /\bytplayer\.config\s*=\s*{/, "<\/script>", "{");
-      i.player_response = M("watch.html", h);
+      i.player_response = k("watch.html", h);
     }
     return i.response = U("watch.html", "response", o, /\bytInitialData("\])?\s*=\s*\{/i, "<\/script>", "{"), i.html5player = G(o), i;
   }, z = "www.youtube.com", se = "/get_video_info", we = "https://youtube.googleapis.com/v/", ne = async (C, E) => {
@@ -4842,7 +4842,7 @@ var Rn = class extends Map {
     o.searchParams.set("video_id", C), o.searchParams.set("c", "TVHTML5"), o.searchParams.set("cver", `7${w.substr(1)}`), o.searchParams.set("eurl", we + C), o.searchParams.set("ps", "default"), o.searchParams.set("gl", "US"), o.searchParams.set("hl", E.lang || "en"), o.searchParams.set("html5", "1");
     const i = await a.exposedMiniget(o.toString(), E).text();
     let b = t.parse(i);
-    return b.player_response = M("get_video_info", b), b;
+    return b.player_response = k("get_video_info", b), b;
   }, Te = (C) => {
     let E = [];
     return C && C.streamingData && (E = E.concat(C.streamingData.formats || []).concat(C.streamingData.adaptiveFormats || [])), E;
