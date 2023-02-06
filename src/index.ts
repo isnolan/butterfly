@@ -15,7 +15,7 @@ export class Butterfly {
 
   constructor(type: string, options?: any) {
     if (type == "tiktok") {
-      this.client = new Tiktok();
+      this.client = new Tiktok(options);
       return;
     }
 
