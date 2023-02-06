@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from "node-fetch";
 import { formatDate } from "./util";
 
 export class Douyin {
@@ -9,13 +9,13 @@ export class Douyin {
 
   async detail(postId: string) {
     const url = `https://www.iesdouyin.com/aweme/v1/web/aweme/detail/?aweme_id=${postId}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333`;
-    return await axios
-      .get(url, { headers: { "user-agent": this.userAgent } })
-      .then(async ({ data }) => {
-        // const data = await res.json();
-        console.log(data);
+    return await fetch(url, { headers: { "user-agent": this.userAgent } }).then(
+      async (res) => {
+        const data = await res.json();
+        // console.log(data);
         return this.parseMeta(data.aweme_detail);
-      });
+      }
+    );
   }
 
   private parseMeta(detail: any) {

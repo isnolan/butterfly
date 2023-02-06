@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from "node-fetch";
 import * as HttpsProxyAgent from "https-proxy-agent";
 import { formatDate } from "./util";
 
@@ -16,19 +16,14 @@ export class Tiktok {
 
   async detail(postId: string) {
     const url = `https://api2.musical.ly/aweme/v1/feed/?aweme_id=${postId}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US`;
-    return await axios
-      .get(url, {
-        timeout: 30000,
-        headers: { "user-agent": this.userAgent },
-        httpsAgent: this.agent,
-      })
-      .then(async ({ data }) => {
-        // console.log(data);
-        const detail = data.aweme_list.find(
-          (row: any) => row.aweme_id == postId
-        );
-        return this.parseMeta(detail);
-      });
+    return await fetch(url, {
+      headers: { "user-agent": this.userAgent },
+      agent: this.agent,
+    }).then(async (res) => {
+      const data = await res.json();
+      const detail = data.aweme_list.find((row: any) => row.aweme_id == postId);
+      return this.parseMeta(detail);
+    });
   }
 
   private parseMeta(detail: any) {
