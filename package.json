@@ -1,10 +1,9 @@
 {
   "name": "butterfly",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Social media data synchronization and analysis tool",
-  "main": "dist/butterfly.umd.js",
-  "module": "dist/butterfly.es5.js",
-  "typings": "dist/types/butterfly.d.ts",
+  "main": "src/index.ts",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
