@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Youtube = void 0;
 const ytdl = require("ytdl-core");
 const HttpsProxyAgent = require("https-proxy-agent");
 class Youtube {
@@ -72,5 +71,5 @@ class Youtube {
         return meta;
     }
 }
-exports.Youtube = Youtube;
+exports.default = Youtube;
 //# sourceMappingURL=youtube.js.map

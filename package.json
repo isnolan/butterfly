@@ -1,6 +1,6 @@
 {
   "name": "@yhostc/butterfly",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Social media synchronization and analysis tool",
   "main": "dist/index.js",
   "author": "yhostc <yhostc@gmail.com>",

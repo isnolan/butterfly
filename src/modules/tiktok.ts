@@ -1,30 +1,40 @@
+import * as HttpsProxyAgent from "https-proxy-agent";
 import fetch from "node-fetch";
-import { formatDate } from "./util";
-import { ButterflyDetail } from "./";
+// import * as HttpsProxyAgent from "https-proxy-agent";
+import { formatDate } from "../util";
+import { ButterflyDetail } from "../dto";
 
-export class Douyin {
+export default class Tiktok {
+  private agent: any;
   private userAgent =
     "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet";
 
-  constructor() {}
+  constructor(option: any) {
+    // options
+    if (option && option.agent) {
+      this.agent = HttpsProxyAgent(option.agent);
+    }
+  }
 
   async detail(postId: string) {
-    const url = `https://www.iesdouyin.com/aweme/v1/web/aweme/detail/?aweme_id=${postId}&aid=1128&version_name=23.5.0&device_platform=android&os_version=2333`;
-    return await fetch(url, { headers: { "user-agent": this.userAgent } }).then(
-      async (res) => {
-        const data = await res.json();
-        // console.log(data);
-        return this.parseMeta(data.aweme_detail);
-      }
-    );
+    const url = `https://api2.musical.ly/aweme/v1/feed/?aweme_id=${postId}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US`;
+    return await fetch(url, {
+      timeout: 10000,
+      headers: { "user-agent": this.userAgent },
+      agent: this.agent,
+    }).then(async (res) => {
+      const data = await res.json();
+      const detail = data.aweme_list.find((row: any) => row.aweme_id == postId);
+      return this.parseMeta(detail);
+    });
   }
 
   private parseMeta(detail: any) {
     const { video, statistics, author } = detail;
     const meta: ButterflyDetail = {
       id: detail.aweme_id, // ID
-      url: `https://www.douyin.com/video/${detail.aweme_id}`, // 访问地址
-      title: detail.preview_title, // 标题
+      url: `https://www.tiktok.com/@${author.unique_id}/video/${detail.aweme_id}`, // 访问地址
+      title: detail.preview_title || "", // 标题
       description: detail.desc, // 描述
       tags: detail.text_extra.map((tag: any) => tag.hashtag_name), // 标签
       category: "", // 分类
@@ -50,8 +60,8 @@ export class Douyin {
       author: {
         id: author.uid, // 频道ID
         name: author.nickname, // 频道名称
-        avatar_url: author.avatar_thumb.url_list[0], // 频道头像，有时效
-        channel_url: `https://www.douyin.com/user/${author.sec_uid}`, // 频道访问地址
+        avatar_url: author.avatar_medium.url_list[0], // 频道头像，有时效
+        channel_url: `https://www.tiktok.com/@${author.unique_id}`, // 频道访问地址
         subscriber_count: author.favoriting_count, // 订阅人数
       },
     };

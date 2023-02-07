@@ -1,5 +1,5 @@
-import { ButterflyDetail } from "./";
-export declare class Tiktok {
+import { ButterflyDetail } from "../dto";
+export default class Tiktok {
     private agent;
     private userAgent;
     constructor(option: any);

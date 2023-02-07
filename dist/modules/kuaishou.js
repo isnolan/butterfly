@@ -9,9 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Kuaishou = void 0;
 const node_fetch_1 = require("node-fetch");
-const util_1 = require("./util");
+const util_1 = require("../util");
 class Kuaishou {
     constructor() {
         this.userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36";
@@ -84,5 +83,5 @@ class Kuaishou {
         return meta;
     }
 }
-exports.Kuaishou = Kuaishou;
+exports.default = Kuaishou;
 //# sourceMappingURL=kuaishou.js.map

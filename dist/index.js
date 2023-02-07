@@ -11,26 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Butterfly = void 0;
 const util_1 = require("./util");
-const tiktok_1 = require("./tiktok");
-const douyin_1 = require("./douyin");
-const youtube_1 = require("./youtube");
-const kuaishou_1 = require("./kuaishou");
+const index_1 = require("./modules/index");
 class Butterfly {
     constructor(type, options) {
         if (type == "tiktok") {
-            this.client = new tiktok_1.Tiktok(options);
+            this.client = new index_1.Tiktok(options);
             return;
         }
         if (type == "douyin") {
-            this.client = new douyin_1.Douyin();
+            this.client = new index_1.Douyin();
             return;
         }
         if (type == "youtube") {
-            this.client = new youtube_1.Youtube(options);
+            this.client = new index_1.Youtube(options);
             return;
         }
         if (type == "kuaishou") {
-            this.client = new kuaishou_1.Kuaishou();
+            this.client = new index_1.Kuaishou();
             return;
         }
         throw new Error(`unsupport the video type: ${type}`);

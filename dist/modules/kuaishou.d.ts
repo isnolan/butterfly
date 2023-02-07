@@ -1,5 +1,5 @@
-import { ButterflyDetail } from "./";
-export declare class Kuaishou {
+import { ButterflyDetail } from "../dto";
+export default class Kuaishou {
     private userAgent;
     constructor();
     detail(postId: string): Promise<ButterflyDetail>;

@@ -1,9 +1,9 @@
 import * as ytdl from "ytdl-core";
 import * as HttpsProxyAgent from "https-proxy-agent";
 
-import { ButterflyDetail } from "./";
+import { ButterflyDetail } from "../dto";
 
-export class Youtube {
+export default class Youtube {
   private agent: any;
 
   constructor(option: any) {

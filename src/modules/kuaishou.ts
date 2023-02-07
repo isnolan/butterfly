@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
-import { formatDate } from "./util";
-import { ButterflyDetail } from "./";
+import { formatDate } from "../util";
+import { ButterflyDetail } from "../dto";
 
-export class Kuaishou {
+export default class Kuaishou {
   private userAgent =
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36";
   constructor() {}

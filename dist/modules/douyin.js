@@ -9,9 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Douyin = void 0;
 const node_fetch_1 = require("node-fetch");
-const util_1 = require("./util");
+const util_1 = require("../util");
 class Douyin {
     constructor() {
         this.userAgent = "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet";
@@ -61,5 +60,5 @@ class Douyin {
         return meta;
     }
 }
-exports.Douyin = Douyin;
+exports.default = Douyin;
 //# sourceMappingURL=douyin.js.map
