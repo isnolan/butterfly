@@ -8,85 +8,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Tiktok = void 0;
-var node_fetch_1 = __importDefault(require("node-fetch"));
-// import * as HttpsProxyAgent from "https-proxy-agent";
-var util_1 = require("./util");
-var Tiktok = /** @class */ (function () {
-    function Tiktok(option) {
+const HttpsProxyAgent = require("https-proxy-agent");
+const node_fetch_1 = require("node-fetch");
+const util_1 = require("./util");
+class Tiktok {
+    constructor(option) {
         this.userAgent = "TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet";
-        // options
         if (option && option.agent) {
-            // this.agent = HttpsProxyAgent(option.agent);
+            this.agent = HttpsProxyAgent(option.agent);
         }
     }
-    Tiktok.prototype.detail = function (postId) {
-        return __awaiter(this, void 0, void 0, function () {
-            var url;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        url = "https://api2.musical.ly/aweme/v1/feed/?aweme_id=".concat(postId, "&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US");
-                        return [4 /*yield*/, (0, node_fetch_1.default)(url, {
-                                headers: { "user-agent": this.userAgent },
-                                // agent: this.agent,
-                            }).then(function (res) { return __awaiter(_this, void 0, void 0, function () {
-                                var data, detail;
-                                return __generator(this, function (_a) {
-                                    switch (_a.label) {
-                                        case 0: return [4 /*yield*/, res.json()];
-                                        case 1:
-                                            data = _a.sent();
-                                            detail = data.aweme_list.find(function (row) { return row.aweme_id == postId; });
-                                            return [2 /*return*/, this.parseMeta(detail)];
-                                    }
-                                });
-                            }); })];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
+    detail(postId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `https://api2.musical.ly/aweme/v1/feed/?aweme_id=${postId}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US`;
+            return yield (0, node_fetch_1.default)(url, {
+                timeout: 10000,
+                headers: { "user-agent": this.userAgent },
+                agent: this.agent,
+            }).then((res) => __awaiter(this, void 0, void 0, function* () {
+                const data = yield res.json();
+                const detail = data.aweme_list.find((row) => row.aweme_id == postId);
+                return this.parseMeta(detail);
+            }));
         });
-    };
-    Tiktok.prototype.parseMeta = function (detail) {
-        var video = detail.video, statistics = detail.statistics, author = detail.author;
-        var meta = {
+    }
+    parseMeta(detail) {
+        const { video, statistics, author } = detail;
+        const meta = {
             id: detail.aweme_id,
-            url: "https://www.tiktok.com/@".concat(author.unique_id, "/video/").concat(detail.aweme_id),
+            url: `https://www.tiktok.com/@${author.unique_id}/video/${detail.aweme_id}`,
             title: detail.preview_title || "",
             description: detail.desc,
-            tags: detail.text_extra.map(function (tag) { return tag.hashtag_name; }),
+            tags: detail.text_extra.map((tag) => tag.hashtag_name),
             category: "",
             created_at: (0, util_1.formatDate)(detail.create_time),
             video: {
@@ -95,25 +50,25 @@ var Tiktok = /** @class */ (function () {
                 height: video.height,
                 duration: Math.floor(video.duration / 1000),
                 cover_url: video.cover.url_list[0],
-                video_url: video.play_addr.url_list[0], // 无水印视频地址，有时效
+                video_url: video.play_addr.url_list[0],
             },
             stats: {
                 view: statistics.play_count,
                 likes: statistics.digg_count,
                 comment: statistics.comment_count,
                 favourite: statistics.collect_count,
-                share: statistics.share_count, // 转发
+                share: statistics.share_count,
             },
             author: {
                 id: author.uid,
                 name: author.nickname,
                 avatar_url: author.avatar_medium.url_list[0],
-                channel_url: "https://www.tiktok.com/@".concat(author.unique_id),
-                subscriber_count: author.favoriting_count, // 订阅人数
+                channel_url: `https://www.tiktok.com/@${author.unique_id}`,
+                subscriber_count: author.favoriting_count,
             },
         };
         return meta;
-    };
-    return Tiktok;
-}());
+    }
+}
 exports.Tiktok = Tiktok;
+//# sourceMappingURL=tiktok.js.map

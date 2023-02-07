@@ -1,6 +1,8 @@
+import * as HttpsProxyAgent from "https-proxy-agent";
 import fetch from "node-fetch";
 // import * as HttpsProxyAgent from "https-proxy-agent";
 import { formatDate } from "./util";
+import { ButterflyDetail } from "./";
 
 export class Tiktok {
   private agent: any;
@@ -10,15 +12,16 @@ export class Tiktok {
   constructor(option: any) {
     // options
     if (option && option.agent) {
-      // this.agent = HttpsProxyAgent(option.agent);
+      this.agent = HttpsProxyAgent(option.agent);
     }
   }
 
   async detail(postId: string) {
     const url = `https://api2.musical.ly/aweme/v1/feed/?aweme_id=${postId}&version_code=262&app_name=musical_ly&channel=App&device_id=null&os_version=14.4.2&device_platform=iphone&device_type=iPhone9&region=US&carrier_region=US`;
     return await fetch(url, {
+      timeout: 10000,
       headers: { "user-agent": this.userAgent },
-      // agent: this.agent,
+      agent: this.agent,
     }).then(async (res) => {
       const data = await res.json();
       const detail = data.aweme_list.find((row: any) => row.aweme_id == postId);
@@ -28,7 +31,7 @@ export class Tiktok {
 
   private parseMeta(detail: any) {
     const { video, statistics, author } = detail;
-    const meta = {
+    const meta: ButterflyDetail = {
       id: detail.aweme_id, // ID
       url: `https://www.tiktok.com/@${author.unique_id}/video/${detail.aweme_id}`, // 访问地址
       title: detail.preview_title || "", // 标题

@@ -1,18 +1,19 @@
 {
-  "name": "butterfly",
-  "version": "0.0.8",
-  "description": "Social media data synchronization and analysis tool",
+  "name": "@yhostc/butterfly",
+  "version": "0.0.9",
+  "description": "Social media synchronization and analysis tool",
   "main": "dist/index.js",
   "author": "yhostc <yhostc@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/yhostc/butterfly.git"
   },
   "scripts": {
     "start": "npm run build && node dist/index.js",
     "start:dev": "npx nodemon",
     "build": "rimraf dist && tsc",
-    "test": "jest"
+    "test": "jest",
+    "publish": "npm publish --access public "
   },
   "keywords": [],
   "license": "MIT",
@@ -34,8 +35,10 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "https-proxy-agent": "^5.0.1",
-    "node-fetch": "^2.6.9",
     "ytdl-core": "^4.11.2"
+  },
+  "peerDependencies": {
+    "https-proxy-agent": "^5.0.1",
+    "node-fetch": "^2.6.9"
   }
 }

@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import { formatDate } from "./util";
+import { ButterflyDetail } from "./";
 
 export class Kuaishou {
   private userAgent =
@@ -43,7 +44,7 @@ export class Kuaishou {
     const { photo, tags, author } = detail;
     const video = photo.manifest.adaptationSet[0].representation[0];
 
-    const meta = {
+    const meta: ButterflyDetail = {
       id: photo.id, // ID
       url: `https://www.kuaishou.com/short-video/${photo.id}`, // 访问地址
       title: photo.caption, // 标题

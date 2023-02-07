@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import { formatDate } from "./util";
+import { ButterflyDetail } from "./";
 
 export class Douyin {
   private userAgent =
@@ -20,7 +21,7 @@ export class Douyin {
 
   private parseMeta(detail: any) {
     const { video, statistics, author } = detail;
-    const meta = {
+    const meta: ButterflyDetail = {
       id: detail.aweme_id, // ID
       url: `https://www.douyin.com/video/${detail.aweme_id}`, // 访问地址
       title: detail.preview_title, // 标题

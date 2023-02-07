@@ -4,10 +4,42 @@ import { Douyin } from "./douyin";
 import { Youtube } from "./youtube";
 import { Kuaishou } from "./kuaishou";
 
-export type VideoType = {
+export type DetectType = {
   type: "tiktok" | "douyin" | "youtube" | "kuaishou";
   url: string;
   id: string;
+};
+
+export type ButterflyDetail = {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+  category: string;
+  created_at: string;
+  video: {
+    quality: string;
+    width: number;
+    height: number;
+    duration: number;
+    cover_url: string;
+    video_url: string;
+  };
+  stats: {
+    view: number;
+    likes: number;
+    comment: number;
+    favourite: number;
+    share: number;
+  };
+  author: {
+    id: string;
+    name: string;
+    avatar_url: string;
+    channel_url: string;
+    subscriber_count: number;
+  };
 };
 
 export class Butterfly {
@@ -42,14 +74,14 @@ export class Butterfly {
    * @param url
    * @returns
    */
-  static async detect(url: string): Promise<VideoType> {
+  static async detect(url: string): Promise<DetectType> {
     return detect(url);
   }
 
   /**
    * 获取视频详情
    */
-  detail(postId: string): Promise<any> {
+  detail(postId: string): Promise<ButterflyDetail> {
     return this.client.detail(postId);
   }
 

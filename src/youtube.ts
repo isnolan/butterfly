@@ -1,6 +1,7 @@
-import * as fs from "fs";
 import * as ytdl from "ytdl-core";
 import * as HttpsProxyAgent from "https-proxy-agent";
+
+import { ButterflyDetail } from "./";
 
 export class Youtube {
   private agent: any;
@@ -48,7 +49,7 @@ export class Youtube {
       (a: any, b: any) => b.width - a.width
     )[0];
 
-    const meta = {
+    const meta: ButterflyDetail = {
       id: detail.videoId, // ID
       url: detail.video_url, // 访问地址
       title: detail.title, // 标题
