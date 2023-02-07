@@ -1,6 +1,6 @@
 {
   "name": "butterfly",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Social media data synchronization and analysis tool",
   "main": "dist/butterfly.umd.js",
   "typings": "dist/index.d.ts",
@@ -36,9 +36,8 @@
   "dependencies": {
     "@types/node-fetch": "^2.6.2",
     "node-fetch": "^2.6.9",
-    "ytdl-core": "^4.11.2"
-  },
-  "peerDependencies": {
+    "ytdl-core": "^4.11.2",
     "https-proxy-agent": "^5.0.1"
-  }
+  },
+  "peerDependencies": {}
 }
