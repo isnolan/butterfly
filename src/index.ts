@@ -56,3 +56,7 @@ export class Butterfly {
   // 获取数据
   statistics(postId: string) {}
 }
+
+export default {
+  Butterfly,
+};

@@ -20,7 +20,7 @@ export class Youtube {
     return new Promise(async (resolve, reject) => {
       const options = {
         quality: "highest",
-        requestOptions: { agent: this.agent },
+        requestOptions: { agent: this.agent as any },
       };
       ytdl.getInfo(postId, options).then(async (info) => {
         // const detail = await fs.readFileSync("./youtube.json");

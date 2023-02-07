@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "es5",
-    "module": "es2015",
-    "lib": ["es2015", "es2016", "es2017"],
-    "strict": true,
-    "sourceMap": true,
+    "module": "commonjs",
     "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
-    "typeRoots": ["node_modules/@types"]
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src/**/*", "typings.d.ts"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
