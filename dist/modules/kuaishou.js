@@ -55,7 +55,6 @@ class Kuaishou {
             title: photo.caption,
             description: "",
             tags: tags.map((tag) => tag.name),
-            category: "",
             created_at: (0, util_1.formatDate)(photo.timestamp / 1000),
             video: {
                 quality: video.qualityType,

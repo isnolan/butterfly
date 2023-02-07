@@ -27,7 +27,6 @@ export default class Douyin {
       title: detail.preview_title, // 标题
       description: detail.desc, // 描述
       tags: detail.text_extra.map((tag: any) => tag.hashtag_name), // 标签
-      category: "", // 分类
       created_at: formatDate(detail.create_time), // 发布日期
 
       video: {

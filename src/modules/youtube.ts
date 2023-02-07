@@ -54,7 +54,6 @@ export default class Youtube {
       url: detail.video_url, // 访问地址
       title: detail.title, // 标题
       description: detail.description, // 描述
-      category: detail.category, // 分类
       tags: [], // 标签
       created_at: detail.uploadDate, // 发布日期
 

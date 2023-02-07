@@ -42,7 +42,6 @@ class Youtube {
             url: detail.video_url,
             title: detail.title,
             description: detail.description,
-            category: detail.category,
             tags: [],
             created_at: detail.uploadDate,
             video: {

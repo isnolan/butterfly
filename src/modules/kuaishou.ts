@@ -50,7 +50,6 @@ export default class Kuaishou {
       title: photo.caption, // 标题
       description: "", // 描述
       tags: tags.map((tag: any) => tag.name), // 标签
-      category: "", // 分类
       created_at: formatDate(photo.timestamp / 1000), // 发布日期
 
       video: {

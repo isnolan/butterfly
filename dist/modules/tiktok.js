@@ -41,7 +41,6 @@ class Tiktok {
             title: detail.preview_title || "",
             description: detail.desc,
             tags: detail.text_extra.map((tag) => tag.hashtag_name),
-            category: "",
             created_at: (0, util_1.formatDate)(detail.create_time),
             video: {
                 quality: video.ratio,
