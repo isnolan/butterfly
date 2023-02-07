@@ -14,7 +14,14 @@
     "build": "rimraf dist && tsc",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": [
+    "tiktok",
+    "youtube",
+    "douyin",
+    "kuaishou",
+    "grabber",
+    "video download"
+  ],
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
