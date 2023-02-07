@@ -1,6 +1,6 @@
 {
   "name": "@yhostc/butterfly",
-  "version": "0.0.9",
+  "version": "0.1.5",
   "description": "Social media synchronization and analysis tool",
   "main": "dist/index.js",
   "author": "yhostc <yhostc@gmail.com>",
@@ -12,8 +12,7 @@
     "start": "npm run build && node dist/index.js",
     "start:dev": "npx nodemon",
     "build": "rimraf dist && tsc",
-    "test": "jest",
-    "publish": "npm publish --access public "
+    "test": "jest"
   },
   "keywords": [],
   "license": "MIT",
@@ -35,9 +34,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "ytdl-core": "^4.11.2"
-  },
-  "peerDependencies": {
+    "ytdl-core": "^4.11.2",
     "https-proxy-agent": "^5.0.1",
     "node-fetch": "^2.6.9"
   }
