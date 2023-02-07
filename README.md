@@ -4,7 +4,7 @@
 
 Butterfly is a tool that wraps the APIs of multiple social media platforms to help you quickly access the video you need.
 
-## Useage
+## Usage
 
 Please follow these steps to install Butterfly:
 
