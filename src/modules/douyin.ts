@@ -30,7 +30,7 @@ export default class Douyin {
       created_at: formatDate(detail.create_time), // 发布日期
 
       video: {
-        quality: video.ratio, //质量标签
+        quality: video.ratio, // 质量标签
         width: video.width, // 宽度
         height: video.height, // 高度
         duration: Math.floor(video.duration / 1000), // 秒长
